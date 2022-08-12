@@ -1,0 +1,65 @@
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+</head>
+<body>
+    <div align="center";>
+    <h1>Park Price Calculator</h1>
+    <form id="carform" autocomplete="off">
+        <label>
+            <input id="waterRides" type="checkbox" value="500" data-itemname="Water Rides">
+            Water Rides: $500
+        </label>
+        <label>
+            <input id="landRides" type="checkbox" value="800" data-itemname="Land Rides">
+            Land Rides: $800
+        </label>
+        <label>
+            <input id="fastTag" type="checkbox" value="300" data-itemname="Fast Tag">
+            Fast Tag: $300
+        </label>
+    </form>
+    
+    <div>
+        Selections:
+        <div id="selections"></div>
+        
+        Total Price: <span id="price"></span>
+    </div>
+
+<script>
+var price = 1000;
+document.getElementById('price').innerHTML = price;
+
+var options = document.getElementById('carform').querySelectorAll('input');
+for(var i=0; i<options.length; i++){
+	options[i].onclick = handleOption;
+}
+
+function handleOption(){
+	var itemPrice = Number(this.value);
+	if(this.checked){
+		price += itemPrice;
+	}
+	else{
+		price -= itemPrice;
+	}
+
+	showSelections();
+	document.getElementById('price').innerHTML = price;
+}
+
+function showSelections(){
+	var list = [];
+	var checkedOnes = document.getElementById('carform').querySelectorAll('input:checked');
+	for(var i=0; i<checkedOnes.length; i++){
+		var itemname = checkedOnes[i].getAttribute('data-itemname');
+		list.push(itemname);
+	}
+	document.getElementById('selections').innerHTML = list.join('<br>');
+}
+</script>
+</div>
+</body>
+</html>
